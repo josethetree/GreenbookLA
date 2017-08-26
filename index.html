@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>Los Angeles Green Book 1939 and 1947</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+
+  
+    <div id='map'></div>
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiY2FyZG9uYWpvc2UxMjMiLCJhIjoiY2o1dHN0dTJlMGN6bzJ3bzAxY2h2dTFtbSJ9.t74iYURkO_j7471F1o1uqA'; // replace this with your access token
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/cardonajose123/cj6p67op42c732row701061cy' // replace this with your style URL
+    });
+    map.on('click', function(e) {
+  var features = map.queryRenderedFeatures({
+    layers: ['greenbook1947', 'greenbook1939'] // replace this with the name of the layer
+  });
+
+  if (!features.length) {
+    return;
+  }
+
+  var feature = features[0];
+
+  var popup = new mapboxgl.Popup({ offset: [0, -1] })
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('<h3>' + feature.properties.Name + '</h3><p>' + feature.properties.Type + '</p>')
+    .setLngLat(feature.geometry.coordinates)
+    .addTo(map);
+});
+
+    </script>
+  </body>
+</html>
